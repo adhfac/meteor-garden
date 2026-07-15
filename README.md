@@ -1,58 +1,156 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dokumentasi Proyek: Kursus Online "Meteor Garden"
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web Kursus Online "Meteor Garden" adalah platform sistem informasi yang dirancang untuk mengelola proses pendaftaran akun peserta, pemilihan kelas kursus, konfirmasi pembayaran, hingga manajemen pengumuman secara daring.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👥 Aktor & *Use Case* Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi ini melibatkan dua aktor utama dengan hak akses dan fungsi (*use case*) sebagai berikut:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### a. Calon Peserta Kursus
 
-## Learning Laravel
+Aktor yang berinteraksi dengan sistem untuk melakukan pendaftaran hingga mengikuti proses kursus.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* **Melakukan Pendaftaran Akun:** Membuat akun baru di platform.
+* **Melihat Status Pendaftaran Akun:** Memantau apakah akun sudah disetujui/diverifikasi oleh Admin.
+* **Login ke Aplikasi:** Masuk ke sistem menggunakan akun yang terdaftar.
+* **Melakukan Pendaftaran Kelas Kursus:** Memilih dan mendaftar pada kelas kursus yang tersedia.
+* **Melihat Status Pendaftaran Kelas:** Memeriksa status persetujuan kelas yang diikuti.
+* **Melakukan Konfirmasi Pembayaran:** Mengunggah atau mengirimkan bukti pembayaran kelas.
+* **Melihat Pengumuman:** Membaca informasi penting yang diterbitkan oleh Admin.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### b. Admin
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Aktor internal yang bertanggung jawab atas pengelolaan data, verifikasi, dan keberlangsungan operasional aplikasi.
 
-## Agentic Development
+* **Login ke Aplikasi:** Masuk ke halaman dasbor admin dengan hak akses khusus.
+* **Memverifikasi Pendaftaran Akun:** Menerima atau menolak pendaftaran akun calon peserta baru.
+* **Memverifikasi Pendaftaran Kelas:** Menerima atau menolak permohonan peserta untuk bergabung di suatu kelas.
+* **Memverifikasi Pembayaran:** Memvalidasi bukti transfer/pembayaran yang dikirim oleh peserta (Menerima/Menolak).
+* **Mengelola Pengumuman:** Membuat (*Create*), membaca (*Read*), mengubah (*Update*), dan menghapus (*Delete*) pengumuman pada sistem.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## 🛠️ Spesifikasi Aplikasi & Dependensi
+
+Proyek ini dibangun menggunakan kerangka kerja Laravel versi terbaru yang membutuhkan lingkungan kerja modern.
+
+### Spesifikasi Utama
+
+* **Framework Version:** Laravel `v13.19.0`
+* **PHP Version:** Minimal **PHP 8.3**, serta mendukung **PHP 8.4** dan **PHP 8.5**.
+> ⚠️ **PENTING:** Aplikasi ini **tidak mendukung** versi PHP di bawah 8.3 (Legacy/Versi lama). Pastikan lingkungan lokal Anda sudah menggunakan versi PHP yang sesuai.
+
+
+
+### Dependensi Utama (`composer.json`)
+
+* `php`: `^8.3`
+* `laravel/framework`: `^13.8`
+* `laravel/tinker`: `^3.0`
+* `phpunit/phpunit`: `^11.5.50 || ^12.5.8 || ^13.0.3` *(Untuk Keperluan Testing)*
+
+---
+
+## 🚀 Panduan Instalasi & Cara Menjalankan
+
+Ikuti langkah-langkah di bawah ini untuk memasang dan menjalankan proyek di komputer lokal Anda:
+
+### 1. Kloning Repositori
+
+Buka Terminal (Linux/macOS) atau Command Prompt/PowerShell (Windows), lalu klon repositori proyek ini:
 
 ```bash
-composer require laravel/boost --dev
+git clone https://github.com/username-kalian/meteor-garden.git
 
-php artisan boost:install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+*(Sesuaikan URL repositori di atas dengan link GitHub yang valid)*
 
-## Contributing
+### 2. Masuk ke Direktori Proyek
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Pindah ke dalam folder proyek yang baru saja di-clone:
 
-## Code of Conduct
+```bash
+cd meteor-garden
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
 
-## Security Vulnerabilities
+### 3. Konfigurasi Environment File
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Salin file `.env.example` menjadi file `.env` baru:
 
-## License
+* **Windows (PowerShell):**
+```powershell
+copy .env.example .env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+
+
+* **Linux / macOS / Git Bash:**
+```bash
+cp .env.example .env
+
+```
+
+
+
+> *Catatan: Buka file `.env` yang baru dibuat dan sesuaikan konfigurasi database Anda (misal: `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).*
+
+### 4. Instalasi Dependensi PHP
+
+Jalankan Composer untuk mengunduh semua pustaka/dependensi yang dibutuhkan:
+
+```bash
+composer install
+
+```
+
+### 5. Generate Application Key
+
+Buat *security key* unik untuk aplikasi Laravel Anda:
+
+```bash
+php artisan key:generate
+
+```
+
+### 6. Jalankan Server Database
+
+Buka aplikasi *local server* pilihan Anda (seperti **XAMPP** atau **Laragon**), lalu aktifkan layanan berikut:
+
+* **MySQL Database**
+* **Nginx** atau **Apache**
+*(Pastikan Anda juga telah membuat database kosong di phpMyAdmin/Sequel Pro sesuai dengan nama yang ada di `.env`)*
+
+### 7. Migrasi Database
+
+Jalankan perintah berikut untuk membuat struktur tabel database yang dibutuhkan aplikasi:
+
+```bash
+php artisan migrate
+
+```
+
+### 8. Database Seeding (Mengisi Data Awal)
+
+Masukkan data awal (seperti akun admin default atau data kelas contoh) ke dalam database:
+
+```bash
+php artisan db:seed --class=DatabaseSeeder
+
+```
+
+*(Catatan: Jika Anda mengalami eror `mb_strimwidth()`, pastikan ekstensi `mbstring` sudah diaktifkan pada file `php.ini` Anda).*
+
+### 9. Menjalankan Aplikasi
+
+Setelah semua proses di atas selesai, jalankan server pengembangan lokal dengan perintah:
+
+```bash
+composer run dev
+
+```
+
+Aplikasi sekarang dapat diakses melalui browser Anda (biasanya di alamat `http://127.0.0.1:8000` atau *virtual host* bawaan Laragon).

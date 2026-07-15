@@ -62,11 +62,9 @@ Ikuti langkah-langkah di bawah ini untuk memasang dan menjalankan proyek di komp
 Buka Terminal (Linux/macOS) atau Command Prompt/PowerShell (Windows), lalu klon repositori proyek ini:
 
 ```bash
-git clone https://github.com/username-kalian/meteor-garden.git
+git clone https://github.com/adhfac/meteor-garden.git
 
 ```
-
-*(Sesuaikan URL repositori di atas dengan link GitHub yang valid)*
 
 ### 2. Masuk ke Direktori Proyek
 

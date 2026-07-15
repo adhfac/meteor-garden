@@ -34,7 +34,6 @@ Route::prefix('admin')
 
 Route::middleware(['auth', 'peserta'])
     ->group(function () {
-
         Route::get('/dashboard', function () {
             return view('peserta.dashboard');
         });
@@ -47,5 +46,4 @@ Route::middleware(['auth', 'peserta'])
         Route::get('/pengumuman', [PengumumanController::class, 'memberIndex'])->name('member.pengumuman.index');
         Route::get('/pengumuman/{pengumuman}', [PengumumanController::class, 'show'])->name('member.pengumuman.show');
         Route::get('/pendaftaran', [PendaftaranController::class, 'memberIndex'])->name('member.pendaftaran.index');
-
     });

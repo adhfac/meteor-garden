@@ -1,47 +1,44 @@
 @extends('layouts.app')
-
 @section('title', 'Daftar Kelas Tersedia')
-
 @section('content')
-    <div>
-        @include('partials.navbar1')
+    @include('partials.navbar1')
 
-        <h1>Daftar Kelas yang Tersedia</h1>
-        <p>Pilih kelas aktif di bawah ini untuk melihat detail informasi.</p>
+    @php
+        $headers = [
+            ['label' => 'No', 'width' => '50'],
+            ['label' => 'Nama Kelas'],
+            ['label' => 'Harga'],
+            ['label' => 'Kapasitas'],
+            ['label' => 'Tanggal Mulai'],
+            ['label' => 'Tanggal Selesai'],
+            ['label' => 'Aksi', 'width' => '130'],
+        ];
+    @endphp
 
-        <table border="1" cellpadding="10" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Kelas</th>
-                    <th>Harga</th>
-                    <th>Kapasitas</th>
-                    <th>Tanggal Mulai</th>
-                    <th>Tanggal Selesai</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($courses as $index => $c)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td><strong>{{ $c->nama_kelas }}</strong></td>
-                        <td>Rp {{ number_format($c->harga, 2, ',', '.') }}</td>
-                        <td>{{ $c->kapasitas }} Kursi</td>
-                        <td>{{ $c->tanggal_mulai }}</td>
-                        <td>{{ $c->tanggal_selesai }}</td>
-                        <td>
-                            <a href="{{ route('member.course.show', $c->id) }}">
-                                <button type="button">Lihat Detail</button>
-                            </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" style="text-align: center;">Saat ini belum ada kelas aktif yang dibuka.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+    <x-table-card title="Daftar Kelas yang Tersedia" :headers="$headers"
+        emptyMessage="Saat ini belum ada kelas aktif yang dibuka." :createRoute="null">
+        @forelse ($courses as $index => $course)
+            <tr>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td><strong>{{ $course->nama_kelas }}</strong></td>
+                <td>Rp {{ number_format($course->harga, 0, ',', '.') }}</td>
+                <td class="text-center">{{ $course->kapasitas }} Kursi</td>
+                <td>{{ \Carbon\Carbon::parse($course->tanggal_mulai)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($course->tanggal_selesai)->format('d/m/Y') }}</td>
+                <td>
+                    <a href="{{ route('member.course.show', $course->id) }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-eye"></i> Lihat Detail
+                    </a>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="{{ count($headers) }}" class="text-center py-4">
+                    <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                    <p class="mb-0">Saat ini belum ada kelas aktif yang dibuka.</p>
+                </td>
+            </tr>
+        @endforelse
+    </x-table-card>
+
 @endsection

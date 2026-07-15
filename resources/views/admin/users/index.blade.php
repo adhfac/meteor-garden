@@ -1,50 +1,59 @@
-@extends('layouts.app') @section('title', 'Pengguna') @section('content') <div>
-            @include('partials.navbar')
+@extends('layouts.app')
+@section('title', 'Pengguna')
+@section('content')
+    @include('partials.navbar')
 
-            <div>
+    @php
+        $headers = [
+            ['label' => 'No', 'width' => '50'],
+            ['label' => 'Nama'],
+            ['label' => 'Email'],
+            ['label' => 'No HP'],
+            ['label' => 'Role'],
+            ['label' => 'Status Akun'],
+            ['label' => 'Tanggal Daftar'],
+            ['label' => 'Aksi', 'width' => '130'],
+        ];
+    @endphp
 
-                <table border="1" cellpadding="10" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>No HP</th>
-                            <th>Role</th>
-                            <th>Status Akun</th>
-                            <th>Tanggal Daftar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($users as $index => $user)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->no_hp }}</td>
-                                <td>{{ $user->role }}</td>
-                                <td>{{ $user->status_akun }}</td>
-                                <td>{{ $user->tanggal_daftar }}</td>
-                                <td>
-                                    <a href="{{ route('users.edit', $user->id) }}">Edit</a>
-                                    |
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;"
-                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
-                                        @csrf
-                                        @method('DELETE') <button type="submit"
-                                            style="color: red; background: none; border: none; cursor: pointer; padding: 0; font-family: inherit; font-size: inherit;">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" style="text-align: center;">Belum ada data user.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-    </div>
+    <x-table-card title="Data Pengguna" :headers="$headers" createRoute="{{ route('users.create') }}"
+        createText="Tambah Pengguna" emptyMessage="Belum ada data pengguna.">
+        @forelse ($users as $index => $user)
+            <tr>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->no_hp }}</td>
+                <td>
+                    @if ($user->role == 'admin')
+                        <span class="badge bg-danger">Admin</span>
+                    @else
+                        <span class="badge bg-primary">Peserta</span>
+                    @endif
+                </td>
+                <td>
+                    @if ($user->status_akun == 'diterima')
+                        <span class="badge bg-success">Diterima</span>
+                    @elseif($user->status_akun == 'pending')
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    @else
+                        <span class="badge bg-danger">Ditolak</span>
+                    @endif
+                </td>
+                <td>{{ $user->tanggal_daftar }}</td>
+                <td>
+                    <x-action-buttons editRoute="users.edit" deleteRoute="users.destroy" :id="$user->id"
+                        deleteMessage="Yakin ingin menghapus user ini?" />
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="{{ count($headers) }}" class="text-center py-4">
+                    <i class="bi bi-info-circle" style="font-size: 1.5rem;"></i>
+                    <p class="mt-2 mb-0">Belum ada data pengguna.</p>
+                </td>
+            </tr>
+        @endforelse
+    </x-table-card>
+
 @endsection

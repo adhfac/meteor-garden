@@ -28,10 +28,16 @@
                 <label for="metode_pembayaran">Metode Pembayaran:</label><br>
                 <select name="metode_pembayaran" id="metode_pembayaran" required>
                     <option value="">-- Pilih Bank / E-Wallet --</option>
-                    <option value="Transfer Bank Mandiri" {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Transfer Bank Mandiri' ? 'selected' : '' }}>Transfer Bank Mandiri
+                    <option value="Transfer Bank Mandiri"
+                        {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Transfer Bank Mandiri' ? 'selected' : '' }}>
+                        Transfer Bank Mandiri
                     </option>
-                    <option value="Transfer Bank BCA" {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Transfer Bank BCA' ? 'selected' : '' }}>Transfer Bank BCA</option>
-                    <option value="Dana / Gopay" {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Dana / Gopay' ? 'selected' : '' }}>Dana / Gopay</option>
+                    <option value="Transfer Bank BCA"
+                        {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Transfer Bank BCA' ? 'selected' : '' }}>
+                        Transfer Bank BCA</option>
+                    <option value="Dana / Gopay"
+                        {{ old('metode_pembayaran', $pembayaran->metode_pembayaran) == 'Dana / Gopay' ? 'selected' : '' }}>
+                        Dana / Gopay</option>
                 </select>
             </div>
             <br>

@@ -1,63 +1,53 @@
-@extends('layouts.app') @section('title', 'Edit Kelas') @section('content') <div>
-        @include('partials.navbar')
-        <h2>Edit Kelas: {{ $course->nama_kelas }}</h2>
+@extends('layouts.app')
+@section('title', 'Edit Kelas')
+@section('content')
+    @include('partials.navbar')
 
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <x-form-card title="Edit Kelas: {{ $course->nama_kelas }}" action="{{ route('course.update', $course->id) }}"
+        method="PUT" submitText="Simpan Perubahan" submitIcon="bi-pencil-square" cancelRoute="{{ route('course.index') }}">
+        <div class="mb-3">
+            <label class="form-label">Nama Kelas</label>
+            <input type="text" name="nama_kelas" class="form-control" value="{{ old('nama_kelas', $course->nama_kelas) }}"
+                required>
+        </div>
 
-        <form action="{{ route('course.update', $course->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+        <div class="mb-3">
+            <label class="form-label">Deskripsi</label>
+            <textarea name="deskripsi" rows="4" class="form-control" required>{{ old('deskripsi', $course->deskripsi) }}</textarea>
+        </div>
 
-            <div>
-                <label>Nama Kelas</label><br>
-                <input type="text" name="nama_kelas" value="{{ old('nama_kelas', $course->nama_kelas) }}" required>
-            </div><br>
+        <div class="mb-3">
+            <label class="form-label">Harga Kelas</label>
+            <input type="number" name="harga" class="form-control" step="0.01"
+                value="{{ old('harga', $course->harga) }}" required>
+        </div>
 
-            <div>
-                <label>Deskripsi</label><br>
-                <textarea name="deskripsi" rows="4" cols="40" required>{{ old('deskripsi', $course->deskripsi) }}</textarea>
-            </div><br>
+        <div class="mb-3">
+            <label class="form-label">Kapasitas</label>
+            <input type="number" name="kapasitas" class="form-control" value="{{ old('kapasitas', $course->kapasitas) }}"
+                required>
+        </div>
 
-            <div>
-                <label>Harga Kelas</label><br>
-                <input type="number" name="harga" step="0.01" value="{{ old('harga', $course->harga) }}" required>
-            </div><br>
+        <div class="mb-3">
+            <label class="form-label">Tanggal Mulai</label>
+            <input type="date" name="tanggal_mulai" class="form-control"
+                value="{{ old('tanggal_mulai', $course->tanggal_mulai) }}" required>
+        </div>
 
-            <div>
-                <label>Kapasitas</label><br>
-                <input type="number" name="kapasitas" value="{{ old('kapasitas', $course->kapasitas) }}" required>
-            </div><br>
+        <div class="mb-3">
+            <label class="form-label">Tanggal Selesai</label>
+            <input type="date" name="tanggal_selesai" class="form-control"
+                value="{{ old('tanggal_selesai', $course->tanggal_selesai) }}" required>
+        </div>
 
-            <div>
-                <label>Tanggal Mulai</label><br>
-                <input type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai', $course->tanggal_mulai) }}" required>
-            </div><br>
+        <div class="mb-3">
+            <label class="form-label">Status Kelas</label>
+            <select name="status" class="form-select" required>
+                <option value="aktif" {{ old('status', $course->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="tidak aktif" {{ old('status', $course->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak
+                    Aktif</option>
+            </select>
+        </div>
+    </x-form-card>
 
-            <div>
-                <label>Tanggal Selesai</label><br>
-                <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai', $course->tanggal_selesai) }}"
-                    required>
-            </div><br>
-
-            <div>
-                <label>Status Kelas</label><br>
-                <select name="status" required>
-                    <option value="aktif" {{ old('status', $course->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="tidak aktif" {{ old('status', $course->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak
-                        Aktif</option>
-                </select>
-            </div><br>
-
-            <button type="submit">Simpan Perubahan</button>
-            <a href="{{ route('course.index') }}">Batal</a>
-        </form>
-    </div>
 @endsection

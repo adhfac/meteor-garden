@@ -8,6 +8,7 @@
 
     <title>@yield('title', 'Aplikasi LSP')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/meteor.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,7 @@
             font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f8f9fa;
             color: #333333;
         }
 
@@ -31,6 +32,33 @@
         h5,
         h6 {
             font-family: 'Libre Baskerville', Georgia, serif;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .card-form {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        }
+
+        .table-custom {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-custom thead th {
+            vertical-align: middle;
+        }
+
+        .table-custom td,
+        .table-custom th {
+            padding: 12px;
         }
     </style>
 </head>

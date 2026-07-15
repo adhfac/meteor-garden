@@ -1,51 +1,42 @@
-@extends('layouts.app') @section('title', 'Berita Kursus') @section('content') <div>
-        @include('partials.navbar1')
-        <h1>Pengumuman</h1>
+@extends('layouts.app')
+@section('title', 'Berita Kursus')
+@section('content')
+    @include('partials.navbar1')
 
-        @if (session('success'))
-            <div style="color: green; margin-bottom: 15px;">
-                {{ session('success') }}
-            </div>
-        @endif
+    @php
+        $headers = [
+            ['label' => 'No', 'width' => '50'],
+            ['label' => 'Judul'],
+            ['label' => 'Isi Pengumuman'],
+            ['label' => 'Penulis'],
+            ['label' => 'Tanggal Publish', 'width' => '180'],
+            ['label' => 'Lihat Aksi'],
+        ];
+    @endphp
 
-        <table border="1" cellpadding="10" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Judul</th>
-                    <th>Isi Pengumuman</th>
-                    <th>Penulis (Admin ID)</th>
-                    <th>Tanggal Publish</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($pengumumans as $index => $pengumuman)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td><strong>{{ $pengumuman->judul }}</strong></td>
-                        <td>{{ Str::limit($pengumuman->isi, 100) }}</td>
-                        <td>{{ $pengumuman->admin->name ?? 'No username' }}</td>
-                        <td>{{ $pengumuman->updated_at }}</td>
-                        <td>
-                            <a href="{{ route('pengumuman.edit', $pengumuman->id) }}">Edit</a>
-                            <form action="{{ route('pengumuman.destroy', $pengumuman->id) }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus pengumuman ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    style="color: red; background: none; border: none; cursor: pointer; padding: 0;">
-                                    Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" style="text-align: center;">Belum ada pengumuman yang diterbitkan.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+    <x-table-card title="Pengumuman" :headers="$headers" emptyMessage="Belum ada pengumuman yang diterbitkan."
+        :createRoute="null">
+        @forelse ($pengumumans as $index => $pengumuman)
+            <tr>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td><strong>{{ $pengumuman->judul }}</strong></td>
+                <td>{{ Str::limit($pengumuman->isi, 100) }}</td>
+                <td>{{ $pengumuman->admin->name ?? 'Tidak diketahui' }}</td>
+                <td>{{ \Carbon\Carbon::parse($pengumuman->updated_at)->format('d/m/Y H:i') }}</td>
+                <td>
+                    <a href="{{ route('member.pengumuman.show', $pengumuman->id) }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-eye"></i> Lihat Detail
+                    </a>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="{{ count($headers) }}" class="text-center py-4">
+                    <i class="bi bi-info-circle" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                    <p class="mb-0">Belum ada pengumuman yang diterbitkan.</p>
+                </td>
+            </tr>
+        @endforelse
+    </x-table-card>
+
 @endsection

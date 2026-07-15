@@ -45,6 +45,7 @@ Route::middleware(['auth', 'peserta'])
         Route::get('/pembayaran/{pembayaran}/bayar', [PembayaranController::class, 'memberEdit'])->name('member.pembayaran.edit');
         Route::put('/pembayaran/{pembayaran}', [PembayaranController::class, 'memberUpdate'])->name('member.pembayaran.update');
         Route::get('/pengumuman', [PengumumanController::class, 'memberIndex'])->name('member.pengumuman.index');
+        Route::get('/pengumuman/{pengumuman}', [PengumumanController::class, 'show'])->name('member.pengumuman.show');
         Route::get('/pendaftaran', [PendaftaranController::class, 'memberIndex'])->name('member.pendaftaran.index');
 
     });

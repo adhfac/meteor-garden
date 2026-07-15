@@ -3,58 +3,125 @@
 @section('title', 'Meteor Garden - Cek Status')
 
 @section('content')
-    <div>
-        <h2>Cek Status Verifikasi Akun Peserta</h2>
-        <p>Masukkan alamat email yang Anda gunakan saat mendaftar untuk melihat status verifikasi terbaru.</p>
 
-        <form action="{{ route('users.search') }}" method="GET">
-            <div>
-                <label for="email">Alamat Email:</label><br>
-                <input type="email" id="email" name="email" value="{{ $email }}" required placeholder="contoh@email.com"
-                    size="30">
-                <button type="submit">Cari</button>
-            </div>
-        </form>
+    <div class="container py-5">
 
-        <br><br>
-        <hr>
-        <br>
+        <div class="row justify-content-center">
 
-        @if($email)
-            <h3>Hasil Pencarian untuk: <em>{{ $email }}</em></h3>
+            <div class="col-md-7">
 
-            @if($user)
-                <table border="1" cellpadding="10" cellspacing="0">
-                    <tr>
-                        <th>Nama Lengkap</th>
-                        <td>{{ $user->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status Akun</th>
-                        <td>
-                            @if($user->status_akun === 'diterima')
-                                <strong style="color: green;">DITERIMA</strong>
-                            @elseif($user->status_akun === 'pending')
-                                <strong style="color: orange;">PENDING (Dalam Verifikasi)</strong>
+                <div class="card shadow-sm">
+
+                    <div class="card-header bg-info text-white text-center">
+                        <h4 class="mb-0">Cek Status Verifikasi Akun</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <p class="text-muted">
+                            Masukkan alamat email yang digunakan saat mendaftar untuk
+                            melihat status verifikasi akun Anda.
+                        </p>
+
+                        <form action="{{ route('users.search') }}" method="GET">
+
+                            <div class="mb-3">
+
+                                <label for="email" class="form-label">
+                                    Alamat Email
+                                </label>
+
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="contoh@email.com" value="{{ $email }}" required>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-info text-white">
+                                Cari
+                            </button>
+
+                            <a href="/" class="btn btn-secondary">
+                                Kembali
+                            </a>
+
+                        </form>
+
+                        @if($email)
+
+                            <hr>
+
+                            <h5>
+                                Hasil Pencarian
+                            </h5>
+
+                            <p>
+                                Email:
+                                <strong>{{ $email }}</strong>
+                            </p>
+
+                            @if($user)
+
+                                <table class="table table-bordered">
+
+                                    <tr>
+                                        <th width="35%">Nama Lengkap</th>
+                                        <td>{{ $user->name }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Status Akun</th>
+                                        <td>
+
+                                            @if($user->status_akun == 'diterima')
+
+                                                <span class="badge bg-success">
+                                                    DITERIMA
+                                                </span>
+
+                                            @elseif($user->status_akun == 'pending')
+
+                                                <span class="badge bg-warning text-dark">
+                                                    PENDING
+                                                </span>
+
+                                            @else
+
+                                                <span class="badge bg-danger">
+                                                    DITOLAK
+                                                </span>
+
+                                            @endif
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Pembaruan Terakhir</th>
+                                        <td>{{ $user->updated_at }}</td>
+                                    </tr>
+
+                                </table>
+
                             @else
-                                <strong style="color: red;">DITOLAK</strong>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Pembaruan Terakhir</th>
-                        <td>{{ $user->updated_at }}</td>
-                    </tr>
-                </table>
-            @else
-                <div style="color: red; font-weight: bold;">
-                    Maaf, data pengguna dengan email tersebut tidak ditemukan dalam sistem kami.
-                </div>
-            @endif
-        @endif
 
-        <a href="/">
-            Kembali
-        </a>
+                                <div class="alert alert-danger mt-3">
+
+                                    Data pengguna dengan email tersebut tidak ditemukan.
+
+                                </div>
+
+                            @endif
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 @endsection

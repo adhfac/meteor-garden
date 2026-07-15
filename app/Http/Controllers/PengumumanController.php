@@ -16,6 +16,12 @@ class PengumumanController extends Controller
         return view('admin.pengumuman.index', compact('pengumumans'));
     }
 
+    public function memberIndex()
+    {
+        $pengumumans = Pengumuman::all();
+        return view('pengumuman.index', compact('pengumumans'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

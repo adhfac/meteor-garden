@@ -3,7 +3,6 @@
         <li><a href="/admin/dashboard">Home</a></li>
         <li><a href="/admin/users">Peserta</a></li>
         <li><a href="/admin/pengumuman">Pengumuman</a></li>
-        <li><a href="/admin/pendaftaran">Pendaftaran</a></li>
         <li><a href="/admin/course">Kelas</a></li>
         <li><a href="/admin/pembayaran">Pembayaran</a></li>
 

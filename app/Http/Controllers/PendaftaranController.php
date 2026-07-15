@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendaftaran;
-use App\Http\Requests\StorePendaftaranRequest;
-use App\Http\Requests\UpdatePendaftaranRequest;
+use App\Models\Pembayaran;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PendaftaranController extends Controller
 {
@@ -14,8 +15,17 @@ class PendaftaranController extends Controller
      */
     public function index()
     {
-        $pendaftarans = Pendaftaran::with(['users', 'courses'])->get();
+        $pendaftarans = Pendaftaran::all();
         return view('admin.pendaftaran.index', compact('pendaftarans'));
+    }
+
+    public function memberIndex()
+    {
+        $pendaftarans = Pendaftaran::where('id_user', auth()->id())
+            ->with('course') // Memuat relasi ke model Course (id_kelas)
+            ->get();
+
+        return view('pendaftaran.index', compact('pendaftarans'));
     }
 
     /**
@@ -23,26 +33,43 @@ class PendaftaranController extends Controller
      */
     public function create()
     {
-        return view('admin.pendaftaran.create');
+        return view('pendaftaran.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePendaftaranRequest $request)
+    public function store(Request $request, Course $course)
     {
-        $validated = $request->validated();
+        $sudahDaftar = Pendaftaran::where('id_user', auth()->id())
+            ->where('id_kelas', $course->id)
+            ->exists();
 
-        Pendaftaran::create([
-            'id_user' => $validated['id_user'],
-            'id_kelas' => $validated['id_kelas'],
-            'tanggal_daftar' => now(),
-            'status_pendaftaran' => 'pending',
-            'catatan_admin' => $validated['catatan_admin'] ?? null,
-        ]);
+        if ($sudahDaftar) {
+            return redirect()->back()->with('error', 'Anda sudah terdaftar di kelas ini.');
+        }
 
-        return redirect()->route('pendaftaran.index')
-            ->with('success', 'Pendaftaran berhasil ditambahkan.');
+        DB::transaction(function () use ($course) {
+            $pendaftaran = Pendaftaran::create([
+                'id_user' => auth()->id(), // Otomatis ambil ID User yang login
+                'id_kelas' => $course->id,  // Otomatis ambil ID Kelas dari URL
+                'tanggal_daftar' => now(),
+                'status_pendaftaran' => 'pending',
+                'catatan_admin' => null,
+            ]);
+
+            Pembayaran::create([
+                'id_pendaftaran' => $pendaftaran->id,
+                'tanggal_bayar' => now(),
+                'jumlah' => $course->harga,
+                'metode_pembayaran' => 'Belum Memilih',
+                'bukti_pembayaran' => 'belum_upload.png',
+                'status_verifikasi' => 'pending',
+                'catatan_admin' => null
+            ]);
+        });
+        return redirect()->route('member.course.index')
+            ->with('success', 'Pendaftaran dan tagihan pembayaran berhasil dibuat! Silakan cek menu pembayaran.');
     }
 
     /**
@@ -59,24 +86,6 @@ class PendaftaranController extends Controller
     public function edit(Pendaftaran $pendaftaran)
     {
         return view('admin.pendaftaran.edit', compact('pendaftaran'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePendaftaranRequest $request, Pendaftaran $pendaftaran)
-    {
-        $validated = $request->validated();
-
-        $pendaftaran->update([
-            'id_user' => $validated['id_user'],
-            'id_kelas' => $validated['id_kelas'],
-            'status_pendaftaran' => $validated['status_pendaftaran'],
-            'catatan_admin' => $validated['catatan_admin'] ?? null,
-        ]);
-
-        return redirect()->route('pendaftaran.index')
-            ->with('success', 'Pendaftaran berhasil diperbarui.');
     }
 
     /**

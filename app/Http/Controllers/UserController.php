@@ -56,4 +56,23 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
+    /**
+     * Menampilkan laman cari pengguna sekaligus memproses pencarian
+     */
+    public function search(Request $request)
+    {
+        $user = null;
+        $email = $request->query('email');
+
+        if ($email) {
+            $request->validate([
+                'email' => ['required', 'email']
+            ]);
+
+            $user = User::where('email', $email)->first();
+        }
+
+        // Kembalikan ke satu view yang sama
+        return view('find', compact('user', 'email'));
+    }
 }

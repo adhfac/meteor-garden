@@ -17,6 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/cek-status', [UserController::class, 'search'])->name('users.search');
 
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
@@ -37,5 +38,13 @@ Route::middleware(['auth', 'peserta'])
         Route::get('/dashboard', function () {
             return view('peserta.dashboard');
         });
-        
+        Route::get('/kelas', [CourseController::class, 'memberIndex'])->name('member.course.index');
+        Route::get('/kelas/{course}', [CourseController::class, 'show'])->name('member.course.show');
+        Route::post('/kelas/{course}/daftar', [PendaftaranController::class, 'store'])->name('member.pendaftaran.store');
+        Route::get('/pembayaran', [PembayaranController::class, 'memberIndex'])->name('member.pembayaran.index');
+        Route::get('/pembayaran/{pembayaran}/bayar', [PembayaranController::class, 'memberEdit'])->name('member.pembayaran.edit');
+        Route::put('/pembayaran/{pembayaran}', [PembayaranController::class, 'memberUpdate'])->name('member.pembayaran.update');
+        Route::get('/pengumuman', [PengumumanController::class, 'memberIndex'])->name('member.pengumuman.index');
+        Route::get('/pendaftaran', [PendaftaranController::class, 'memberIndex'])->name('member.pendaftaran.index');
+
     });

@@ -49,7 +49,14 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('admin.course.show', compact('course'));
+        return view('course.show', compact('course'));
+    }
+
+    public function memberIndex()
+    {
+        $courses = Course::where('status', 'aktif')->get();
+
+        return view('course.index', compact('courses'));
     }
 
     /**

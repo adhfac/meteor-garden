@@ -3,7 +3,7 @@
         <li><a href="/dashboard">Home</a></li>
         <li><a href="/pengumuman">Pengumuman</a></li>
         <li><a href="/pendaftaran">Pendaftaran</a></li>
-        <li><a href="/course">Kelas</a></li>
+        <li><a href="/kelas">Kelas</a></li>
         <li><a href="/pembayaran">Pembayaran</a></li>
 
         @auth

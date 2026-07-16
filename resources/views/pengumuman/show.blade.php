@@ -40,19 +40,6 @@
                     <a href="{{ route('member.pengumuman.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Kembali ke Daftar Pengumuman
                     </a>
-                    @if (auth()->user()->role == 'admin')
-                        <a href="{{ route('pengumuman.edit', $pengumuman->id) }}" class="btn btn-warning">
-                            <i class="bi bi-pencil"></i> Edit Pengumuman
-                        </a>
-                        <form action="{{ route('pengumuman.destroy', $pengumuman->id) }}" method="POST" class="d-inline"
-                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengumuman ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Hapus Pengumuman
-                            </button>
-                        </form>
-                    @endif
                 </div>
             </div>
         </div>

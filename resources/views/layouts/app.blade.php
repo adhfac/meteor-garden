@@ -43,7 +43,7 @@
             background: white;
             padding: 24px;
             border-radius: 8px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, .075);
         }
 
         .table-custom {
@@ -65,6 +65,48 @@
 
 <body>
     @yield('content')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#4F46E5', // Warna Indigo sesuai tema
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            @endif
+
+
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ session('error') }}',
+                    confirmButtonColor: '#111827' // Warna gelap sesuai tema
+                });
+            @endif
+
+            @if ($errors->any())
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Failed!',
+                    html: `
+                        <ul class="text-left text-sm text-red-500 list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    `,
+                    confirmButtonColor: '#111827'
+                });
+            @endif
+        });
+    </script>
 </body>
 
 </html>

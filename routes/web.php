@@ -11,6 +11,7 @@ use App\Http\Controllers\PembayaranController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', [CourseController::class, 'publicIndex'])->name('home');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

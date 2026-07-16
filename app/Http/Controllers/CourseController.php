@@ -59,6 +59,13 @@ class CourseController extends Controller
         return view('course.index', compact('courses'));
     }
 
+    public function publicIndex()
+    {
+        $courses = Course::where('status', 'aktif')->get();
+
+        return view('welcome', compact('courses'));
+    }
+
     /**
      * Menampilkan form edit untuk kelas tertentu.
      */

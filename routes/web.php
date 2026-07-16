@@ -22,9 +22,6 @@ Route::get('/cek-status', [UserController::class, 'search'])->name('users.search
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        });
         Route::resource('users', UserController::class);
         Route::resource('pengumuman', PengumumanController::class);
         Route::resource('pendaftaran', PendaftaranController::class);
@@ -34,9 +31,6 @@ Route::prefix('admin')
 
 Route::middleware(['auth', 'peserta'])
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('peserta.dashboard');
-        });
         Route::get('/kelas', [CourseController::class, 'memberIndex'])->name('member.course.index');
         Route::get('/kelas/{course}', [CourseController::class, 'show'])->name('member.course.show');
         Route::post('/kelas/{course}/daftar', [PendaftaranController::class, 'store'])->name('member.pendaftaran.store');

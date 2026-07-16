@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="/admin/users">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('users.index') }}">
             <img src="{{ asset('images/meteor.png') }}" alt="Logo" width="35" height="35"
                 class="rounded-circle me-2" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);">
             Meteor Garden Admin
@@ -11,16 +11,28 @@
         <div class="collapse navbar-collapse" id="navbarAdmin">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a href="/admin/users" class="nav-link"> Peserta </a>
+                    <a href="{{ route('users.index') }}"
+                        class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                        Peserta
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/pengumuman" class="nav-link"> Pengumuman </a>
+                    <a href="{{ route('pengumuman.index') }}"
+                        class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                        Pengumuman
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/course" class="nav-link"> Kelas </a>
+                    <a href="{{ route('course.index') }}"
+                        class="nav-link {{ request()->routeIs('course.*') ? 'active' : '' }}">
+                        Kelas
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/pembayaran" class="nav-link"> Pembayaran </a>
+                    <a href="{{ route('pembayaran.index') }}"
+                        class="nav-link {{ request()->routeIs('pembayaran.*') ? 'active' : '' }}">
+                        Pembayaran
+                    </a>
                 </li>
             </ul>
             @auth

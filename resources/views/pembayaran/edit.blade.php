@@ -99,41 +99,4 @@
         </div>
     </div>
 
-    {{-- Script untuk Preview Gambar --}}
-    @push('scripts')
-        <script>
-            document.querySelector('input[name="bukti_pembayaran"]').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                const previewContainer = document.getElementById('preview-container');
-                const previewImage = document.getElementById('preview-image');
-
-                if (file) {
-                    // Validasi ukuran file
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert('Ukuran file terlalu besar! Maksimal 2MB.');
-                        this.value = '';
-                        previewContainer.style.display = 'none';
-                        return;
-                    }
-
-                    // Validasi tipe file
-                    const allowedTypes = ['image/jpeg', 'image/png'];
-                    if (!allowedTypes.includes(file.type)) {
-                        alert('Format file tidak didukung! Gunakan JPG, JPEG, atau PNG.');
-                        this.value = '';
-                        previewContainer.style.display = 'none';
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewImage.src = e.target.result;
-                        previewContainer.style.display = 'block';
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        </script>
-    @endpush
-
 @endsection

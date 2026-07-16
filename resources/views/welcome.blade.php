@@ -80,7 +80,7 @@
 
                     @auth
 
-                        <a href="/pengumuman" class="btn btn-light">
+                        <a href="/dashboard" class="btn btn-light">
                             Dashboard
                         </a>
 

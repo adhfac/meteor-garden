@@ -61,11 +61,89 @@
         .table-custom th {
             padding: 12px;
         }
+
+        .hover-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .hover-card:active {
+            transform: scale(0.97);
+        }
+
+        /* Active link style */
+        .navbar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 5px;
+            font-weight: 600;
+            color: #fff !important;
+        }
+
+        /* Hover effect */
+        .navbar .nav-link {
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .navbar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 5px;
+        }
+
+        /* Logout button */
+        .btn-outline-danger {
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
     </style>
 </head>
 
 <body>
     @yield('content')
+
+    <script>
+        document.querySelector('input[name="bukti_pembayaran"]').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const previewContainer = document.getElementById('preview-container');
+            const previewImage = document.getElementById('preview-image');
+
+            if (file) {
+                // Validasi ukuran file
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran file terlalu besar! Maksimal 2MB.');
+                    this.value = '';
+                    previewContainer.style.display = 'none';
+                    return;
+                }
+
+                // Validasi tipe file
+                const allowedTypes = ['image/jpeg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Format file tidak didukung! Gunakan JPG, JPEG, atau PNG.');
+                    this.value = '';
+                    previewContainer.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

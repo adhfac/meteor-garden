@@ -31,6 +31,9 @@ Route::prefix('admin')
 
 Route::middleware(['auth', 'peserta'])
     ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('peserta.dashboard');
+        });
         Route::get('/kelas', [CourseController::class, 'memberIndex'])->name('member.course.index');
         Route::get('/kelas/{course}', [CourseController::class, 'show'])->name('member.course.show');
         Route::post('/kelas/{course}/daftar', [PendaftaranController::class, 'store'])->name('member.pendaftaran.store');

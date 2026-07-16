@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Detail Pengumuman - ' . $pengumuman->judul)
 @section('content')
-    @include('partials.navbar')
+    @include('partials.navbar1')
 
     <div class="container py-4">
         <div class="card shadow-sm">
@@ -38,7 +38,7 @@
 
                 <div class="d-flex gap-2 mt-4">
                     <a href="{{ route('member.pengumuman.index') }}" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left"></i> Kembali ke Daftar Pengumuman
+                        Kembali ke Daftar Pengumuman
                     </a>
                 </div>
             </div>

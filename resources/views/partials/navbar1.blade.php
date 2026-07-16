@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container"> <a class="navbar-brand fw-bold" href="/dashboard"> Meteor Garden </a> <button
-            class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUser"> <span
-                class="navbar-toggler-icon"></span> </button>
+    <div class="container"> <a class="navbar-brand fw-bold" href="/pengumuman">
+            <img src="{{ asset('images/meteor.png') }}" alt="Logo" width="35" height="35"
+                class="rounded-circle me-2" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);"> Meteor
+            Garden </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarUser"> <span class="navbar-toggler-icon"></span> </button>
         <div class="collapse navbar-collapse" id="navbarUser">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"> <a href="/pengumuman" class="nav-link"> Pengumuman </a> </li>

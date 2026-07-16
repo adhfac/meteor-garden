@@ -31,7 +31,6 @@
         @empty
             <tr>
                 <td colspan="{{ count($headers) }}" class="text-center py-4">
-                    <i class="bi bi-info-circle" style="font-size: 1.5rem;"></i>
                     <p class="mt-2 mb-0">{{ $emptyMessage ?? 'Belum ada data yang tersedia.' }}</p>
                 </td>
             </tr>

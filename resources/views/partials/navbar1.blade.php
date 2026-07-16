@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="/dashboard">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
             <img src="{{ asset('images/meteor.png') }}" alt="Logo" width="35" height="35"
                 class="rounded-circle me-2" style="object-fit: cover; border: 2px solid rgba(255,255,255,0.2);">
             Meteor Garden
